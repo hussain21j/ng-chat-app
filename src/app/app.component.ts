@@ -2,13 +2,17 @@ import { Component } from '@angular/core';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import $ from 'jquery';
+import { HttpClient } from '@angular/common/http';
+import { ChatappService } from './services/chatapp.service';
+import { ChatHistory } from './models/ChatHistory';
 
 declare var $: any;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [ChatappService]
 })
 
 export class AppComponent {
@@ -20,6 +24,11 @@ export class AppComponent {
   isValidationOk: boolean = true;
   isConnected: boolean = false;
   isHistoryScreen: boolean = false;
+  chatHistoryList: ChatHistory[] = [];
+  errorMessage: string;
+  chatAppService: ChatappService;
+  private stompClient;
+  
 
 
   colors: string[] = [
@@ -29,9 +38,10 @@ export class AppComponent {
 
   private serverUrl = 'http://localhost:8080/ws';
   title = 'ng-chat-app';
-  private stompClient;
+  
 
-  constructor() {
+  constructor(chatAppService: ChatappService) {
+    this.chatAppService = chatAppService;
   }
 
   initializeWebSocketConnection() {
@@ -167,6 +177,15 @@ export class AppComponent {
     this.isChatScreen=false;
     this.isUserNameScreen = false;
     this.isHistoryScreen = true;
+
+    this.chatAppService.getChatHistory().subscribe(resp =>{
+        this.chatHistoryList = []; //clean the list
+        this.chatHistoryList = resp;
+        console.log('resp :'+this.chatHistoryList[0].sender+"  "+this.chatHistoryList[0].timestamp+"  "+this.chatHistoryList[0].content);
+    }, error => {
+        this.errorMessage = "Error in fetching the history";
+    });
+
   }
 
   login(event) {
@@ -177,6 +196,12 @@ export class AppComponent {
     } else {
       this.isValidationOk = false;
     }
+  }
+
+  backToChat() {
+    this.isChatScreen = true;
+    this.isHistoryScreen = false;
+    this.isUserNameScreen = false;
   }
 
 

@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { AlertModule } from 'ngx-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { AlertModule } from 'ngx-bootstrap';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     AlertModule.forRoot()
   ],
   providers: [],

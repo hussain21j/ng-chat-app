@@ -36,26 +36,40 @@
                 <div class="form-group">
                     <div class="input-group clearfix">
                         <input [(ngModel)]="message" id="message" placeholder="Type a message..." name="message" class="form-control"/>
-                        <button type="submit" (click)="sendMessage($event)">Send</button>
-                        <button type="button" (click)="publishHistory($event)">Chat History</button>
+                        <button type="submit" (click)="sendMessage($event)" class="primary">Send</button>
+                        <button type="button" (click)="publishHistory($event)" class="accent">Chat History</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 
-    <div id="username-page" *ngIf="isHistoryScreen">
-        <div class="username-page-container">
-            <h1 class="title">{{applicationName}}</h1>
-            <form id="usernameForm" name="usernameForm">
-                <div class="form-group">
-                    <input [(ngModel)]="name" id="name" placeholder="Enter your name to start chat" name="username" class="form-control"/>
-                  </div>
-                <div class="form-group">
-                    <button type="submit" (click)="login($event)" class="accent username-submit">Start Chatting</button>
+
+    <div id="chat-history-page" *ngIf="isHistoryScreen">
+            <div class="chat-history-container">
+                    <div class="chat-header">
+                        <h2>Chat History</h2>
+                    </div>
+                        <ul>
+                            <li *ngFor="let chat of chatHistoryList">
+                                <div id="chat-history-box">
+                                    <div class="sender">
+                                        <span>{{chat.sender}}</span>
+                                    </div>
+                                    <div class="content">
+                                        <span>{{chat.content}}</span>
+                                    </div>
+                                    <div class="date">
+                                        <span>{{chat.timestamp}}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    <div id="chat-history-control">
+                            <button type="button" (click)="backToChat($event)" class="primary">Back to Chat</button>
+                    </div>
+                    
                 </div>
-            </form>
-        </div>
     </div>
 
 
