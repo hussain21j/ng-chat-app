@@ -1,30 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+    <title>{{title}}</title>
 </head>
 <body>
-    <div style="text-align:center">
-        <h1>
-          Welcome to {{title}}!
-        </h1>
-        <div class="chat-container">
-          <div class="chat">
-            <div class="message"></div>
-          </div>
+    <alert type="danger" *ngIf="!isValidationOk" style="text-align: center">Please fill the name to enter</alert>
+    <!--Login Division-->
+    <div id="username-page" *ngIf="isUserNameScreen">
+        <div class="username-page-container">
+            <h1 class="title">{{applicationName}}</h1>
+            <form id="usernameForm" name="usernameForm">
+                <div class="form-group">
+                    <input [(ngModel)]="name" id="name" placeholder="Enter your name to start chat" name="username" class="form-control"/>
+                  </div>
+                <div class="form-group">
+                    <button type="submit" (click)="login($event)" class="accent username-submit">Start Chatting</button>
+                </div>
+            </form>
         </div>
-      </div>
-      
-      <div class="footer">
-        <div class="send-button">
-      
-          <div class="send" (click)="sendMessage(input.value)">
-          </div>
-          <input  id="input" type="text" #input>
-        </div>
-      
-      </div>
+    </div>
 
-<router-outlet>Loading ....</router-outlet>
+    <!--Chat Division-->
+    <div id="chat-page" *ngIf="isChatScreen">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h2>{{applicationName}}</h2>
+            </div>
+            <div class="connecting" *ngIf="!isConnected">
+                Connecting...
+            </div>
+            <ul id="messageArea">
+
+            </ul>
+            <form id="messageForm" name="messageForm" nameForm="messageForm">
+                <div class="form-group">
+                    <div class="input-group clearfix">
+                        <input [(ngModel)]="message" id="message" placeholder="Type a message..." name="message" class="form-control"/>
+                        <button type="submit" (click)="sendMessage($event)">Send</button>
+                        <button type="button" (click)="publishHistory($event)">Chat History</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="username-page" *ngIf="isHistoryScreen">
+        <div class="username-page-container">
+            <h1 class="title">{{applicationName}}</h1>
+            <form id="usernameForm" name="usernameForm">
+                <div class="form-group">
+                    <input [(ngModel)]="name" id="name" placeholder="Enter your name to start chat" name="username" class="form-control"/>
+                  </div>
+                <div class="form-group">
+                    <button type="submit" (click)="login($event)" class="accent username-submit">Start Chatting</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+<router-outlet></router-outlet>
 </body>
 </html>
