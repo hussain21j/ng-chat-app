@@ -15,8 +15,8 @@ export class Config {
     /**
      * Web socket server URL
      */
-    static serverWebSocketURL: string = "http://localhost:8080/chat-app.api/ws";
-    static apiBaseURL: string = "http://localhost:8080/chat-app.api/"
+    static serverWebSocketURL: string = "http://localhost:8080/ws";
+    static apiBaseURL: string = "http://localhost:8080/"
     static endPointChatHistory: string = "chat/history";
 
 }

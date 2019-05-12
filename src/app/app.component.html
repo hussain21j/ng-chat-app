@@ -27,7 +27,7 @@
     <div id="chat-page" *ngIf="isChatScreen">
         <div class="chat-container">
             <div class="chat-header">
-                <h2>{{applicationName}}</h2>
+                <span class="page-heading">{{applicationName}}</span><span class="logged-user">{{name}}</span> 
             </div>
             <div class="connecting" *ngIf="!isConnected">
                 Connecting...
@@ -52,7 +52,7 @@
     <div id="chat-history-page" *ngIf="isHistoryScreen">
         <div class="chat-history-container">
             <div class="chat-header">
-                <h2>Chat History</h2>
+                    <span class="page-heading">Chat History</span><span class="logged-user">{{name}}</span>
             </div>
             <ul>
                 <li *ngFor="let chat of chatHistoryList">
@@ -72,8 +72,11 @@
             <div id="chat-history-control">
                 <button type="button" (click)="backToChat($event)" class="primary">Back to Chat</button>
             </div>
-
         </div>
+    </div>
+
+    <div class="footer">
+        <p style="float: right; margin-right: 5%" >Assigngnment solution - Tayab Hussain</p>
     </div>
 
 
